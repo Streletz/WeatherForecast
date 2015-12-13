@@ -16,4 +16,4 @@ Weather forecast for Android.
 
 #####1.0
 
-First version of this program/
+First version of this program.
