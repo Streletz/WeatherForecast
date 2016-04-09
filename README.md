@@ -8,7 +8,7 @@ Weather forecast for Android.
 -LICENSE_RU           license of "WeatherForecast" in Russian
 -README               this file
 # Update Info
-2.0
+3.0
 =================
 -Added support for weather forecast for multiple cities.
 
