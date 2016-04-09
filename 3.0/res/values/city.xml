@@ -1,0 +1,10 @@
+<resources>
+    <string-array name="city">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Воронеж</item>
+    </string-array>
+    <string name="Moscow">524901</string>
+    <string name="SaintPetersburg">519690</string>
+    <string name="Voronezh">472045</string>
+</resources>

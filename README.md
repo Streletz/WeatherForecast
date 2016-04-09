@@ -2,10 +2,15 @@
 Weather forecast for Android.
 1.0/                  Version 1.0 of "WeatherForecast" source files
 2.0/                  Version 2.0 of "WeatherForecast" source files
+3.0/                  Version 3.0 of "WeatherForecast" source files
 -LICENSE_EN           license of "WeatherForecast" in English
 -LICENSE_RU           license of "WeatherForecast" in Russian
 -README               this file
 # Update Info
+2.0
+=================
+-Added support for weather forecast for multiple cities.
+
 2.0
 =================
 -Improved design and user interface;
