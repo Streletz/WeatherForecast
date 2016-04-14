@@ -1,0 +1,28 @@
+<resources>
+    <string-array name="city">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Владимир</item>
+        <item>Воронеж</item>
+        <item>Калуга</item>
+        <item>Липецк</item>
+        <item>Ростов-На-Дону</item>
+        <item>Рязань</item>
+        <item>Смоленск</item>
+        <item>Тверь</item>
+        <item>Тула</item>
+        <item>Ярославль</item>
+    </string-array>
+    <string name="Moscow">524901</string>
+    <string name="SaintPetersburg">519690</string>
+    <string name="Vladimir">473247</string>
+    <string name="Voronezh">472045</string>
+    <string name="Kaluga">553915</string>
+    <string name="Lipetsk">535121</string>
+    <string name="RostovNaDonu">501175</string>
+    <string name="Ryazan">500096</string>
+    <string name="Smolensk">491687</string>
+    <string name="Tver">480060</string>
+    <string name="Tula">480562</string>
+    <string name="Yaroslavl">468902</string>
+</resources>

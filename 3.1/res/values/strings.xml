@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Прогноз погоды</string>
-    <string name="version_info">3.0</string>
+    <string name="version_info">3.1</string>
     <string name="year_start">2015-2016</string>
     <string name="today">Сегодня</string>
     <string name="dayTemp">День,°C </string>
@@ -17,7 +17,8 @@
     <string name="Ok">OK</string>
     <string name="version">Версия</string>
     <string name="dataUrl">http://api.openweathermap.org/data/2.5/forecast/daily?id=</string>
-    <string name="key">\u0026lang=ru\u0026appid=58a23cd09f531e28b95628c8513c57c4</string>
+    <string name="key">\u0026lang=ru\u0026appid=</string>
     <string name="settingsHeader">Настройки</string>
     <string name="citySelectTitle">Выбор города</string>
+    <string name="criticalError">Невозможно загрузить данные!Вероятно отсутствует доступ в Интернет.</string>
 </resources>
