@@ -5,16 +5,23 @@ Weather forecast for Android.
 - 2.0/..................Version 2.0 of "WeatherForecast" source files
 - 3.0/..................Version 3.0 of "WeatherForecast" source files
 - 3.1/..................Version 3.1 of "WeatherForecast" source files
+- 4.0/..................Version 4.0 of "WeatherForecast" source files
 - LICENSE_EN............license of "WeatherForecast" in English
 - LICENSE_RU............license of "WeatherForecast" in Russian
 - README................this file
 
 # Update Info
 
+4.0
+=================
+-Added new town;
+-Fixed several bugs.
+
 3.1
 =================
 -Added new town;
--Fixed several bugsю
+-Modified design;
+-Added widget for home screen (data refresh every 5 minutes).
 
 3.0
 =================
