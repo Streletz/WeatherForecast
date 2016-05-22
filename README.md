@@ -15,29 +15,29 @@ Weather forecast for Android.
 
 5.0
 =================
--Added new town;
--Added display of the selected city on the main screen;
--2 times reduced the update interval of the widget (the widget is updated every 2 minutes, 30 seconds);
--Added the ability to refresh the widget manually. Just clicking on it;
--Fixed several bugs.
+- Added new town;
+- Added display of the selected city on the main screen;
+- 2 times reduced the update interval of the widget (the widget is updated every 2 minutes, 30 seconds);
+- Added the ability to refresh the widget manually. Just clicking on it;
+- Fixed several bugs.
 
 4.0
 =================
--Added new town;
--Fixed several bugs.
+- Added new town;
+- Fixed several bugs.
 
 3.1
 =================
--Added new town;
--Modified design;
--Added widget for home screen (data refresh every 5 minutes).
+- Added new town;
+- Modified design;
+- Added widget for home screen (data refresh every 5 minutes).
 
 3.0
 =================
--Added support for weather forecast for multiple cities.
+- Added support for weather forecast for multiple cities.
 
 2.0
 =================
--Improved design and user interface;
--Fixed a bug when using the device fonts;
--Fixed a bug in the menu of the main screen.
+- Improved design and user interface;
+- Fixed a bug when using the device fonts;
+- Fixed a bug in the menu of the main screen.
