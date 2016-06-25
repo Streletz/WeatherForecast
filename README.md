@@ -7,11 +7,16 @@ Weather forecast for Android.
 - 3.1/..................Version 3.1 of "WeatherForecast" source files
 - 4.0/..................Version 4.0 of "WeatherForecast" source files
 - 5.0/..................Version 5.0 of "WeatherForecast" source files
+- 5.1/..................Version 5.1 of "WeatherForecast" source files
 - LICENSE_EN............license of "WeatherForecast" in English
 - LICENSE_RU............license of "WeatherForecast" in Russian
 - README................this file
 
 # Update Info
+
+5.1
+=================
+- Added new town;
 
 5.0
 =================
