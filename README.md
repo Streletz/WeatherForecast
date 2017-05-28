@@ -11,11 +11,23 @@ Weather forecast for Android.
 - 5.2/..................Version 5.2 of "WeatherForecast" source files
 - 5.3/..................Version 5.3 of "WeatherForecast" source files
 - 5.4/..................Version 5.4 of "WeatherForecast" source files
+- 6.0/..................Version 6.0 of "WeatherForecast" source files
 - LICENSE_EN............license of "WeatherForecast" in English
 - LICENSE_RU............license of "WeatherForecast" in Russian
 - README................this file
 
 # Update Info
+
+6.0
+=================
+
+- Support Android 7;
+- A completely new mechanism of work with the database;
+- Added new town;
+- Added support for weather forecasts for a few countries (only Russia, Belarus and Kazakhstan partly, but in the future the list of countries and cities will be expanded);
+- The city list is now sorted strictly alphabetically;
+- Modified user interface;
+- Fixed several bugs.
 
 5.4
 =================
