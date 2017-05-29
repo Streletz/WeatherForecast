@@ -12,11 +12,17 @@ Weather forecast for Android.
 - 5.3/..................Version 5.3 of "WeatherForecast" source files
 - 5.4/..................Version 5.4 of "WeatherForecast" source files
 - 6.0/..................Version 6.0 of "WeatherForecast" source files
+- 6.1/..................Version 6.0 of "WeatherForecast" source files
 - LICENSE_EN............license of "WeatherForecast" in English
 - LICENSE_RU............license of "WeatherForecast" in Russian
 - README................this file
 
 # Update Info
+
+6.1
+=================
+
+- Fixed several bugs.
 
 6.0
 =================
