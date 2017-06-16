@@ -8,7 +8,7 @@ Weather forecast for Android.
 
 # Update Info
 
-6.1
+6.2
 =================
 - Added new town.
 
