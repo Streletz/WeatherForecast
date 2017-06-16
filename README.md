@@ -1,23 +1,16 @@
 # WeatherForecast
 Weather forecast for Android.
 
-- 1.0/..................Version 1.0 of "WeatherForecast" source files
-- 2.0/..................Version 2.0 of "WeatherForecast" source files
-- 3.0/..................Version 3.0 of "WeatherForecast" source files
-- 3.1/..................Version 3.1 of "WeatherForecast" source files
-- 4.0/..................Version 4.0 of "WeatherForecast" source files
-- 5.0/..................Version 5.0 of "WeatherForecast" source files
-- 5.1/..................Version 5.1 of "WeatherForecast" source files
-- 5.2/..................Version 5.2 of "WeatherForecast" source files
-- 5.3/..................Version 5.3 of "WeatherForecast" source files
-- 5.4/..................Version 5.4 of "WeatherForecast" source files
-- 6.0/..................Version 6.0 of "WeatherForecast" source files
-- 6.1/..................Version 6.0 of "WeatherForecast" source files
+- main/.................source files
 - LICENSE_EN............license of "WeatherForecast" in English
 - LICENSE_RU............license of "WeatherForecast" in Russian
 - README................this file
 
 # Update Info
+
+6.1
+=================
+- Added new town.
 
 6.1
 =================
