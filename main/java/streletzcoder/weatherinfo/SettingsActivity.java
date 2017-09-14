@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +34,11 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        //Включение кнопки "Назад"
+        ActionBar actionBar =getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        //Инициализация интерфейса
         buttonOk = (Button) findViewById(R.id.buttonOk);
         citySelect = (Spinner) findViewById(R.id.citySelect);
         countrySelect = (Spinner) findViewById(R.id.countrySelect);
@@ -89,6 +95,10 @@ public class SettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         /*Обработка событий меню*/
         switch (item.getItemId()) {
+            //Кнопка "Назад"
+            case android.R.id.home:
+                this.finish();
+                return true;
             //Вызов экрана "О Программе" через меню
             case R.id.aboutInfoItem:
                 showAboutActivity();

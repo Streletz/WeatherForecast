@@ -58,6 +58,14 @@ public class WeatherInfo {
         return getShortDate() + ": " + getDayTemp() + "..." + getNightTemp() + " " + getWeatherDescription();
     }
 
+    /**
+     * Данные о погоде без даты
+     * @return Строка сданными о погоде.
+     */
+    public String getShortInfoOnlyWeather() {
+        return getDayTemp() + "..." + getNightTemp() + " " + getWeatherDescription();
+    }
+
     private String getFormattedDate(Date date) {/*Форматированное значение даты*/
         String s = "";
         Locale local = new Locale("ru", "RU");

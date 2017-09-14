@@ -18,4 +18,15 @@
     <style name="tbl_text">
         <item name="android:textColor">#fcf9f9</item>
     </style>
+    <style name="weather_button">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/weatherinfo_button</item>
+    </style>
+    <style name="tbl_item">
+        <item name="android:layout_marginBottom">5pt</item>
+        <item name="android:background">@drawable/tbl_item_bg</item>
+        <item name="android:paddingBottom">3pt</item>
+    </style>
+
+
 </resources>

@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView cityTitle;
     private TextView currentDayTitle;
     private TextView weatherText;
-    private ListView listView;
     private String tvArray[];
     /*ВЕКТОР ДАННЫХ О ПОГОДЕ*/
     Vector<WeatherInfo> weatherInfoVector;
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         cityTitle = (TextView) findViewById(R.id.cityTitle);
         currentDayTitle = (TextView) findViewById(R.id.currentDayTitle);
         weatherText = (TextView) findViewById(R.id.weatherText);
-        listView = (ListView) findViewById(R.id.listView);
         repository = new DbRepository(this.getApplicationContext());
         //Инициализация текстовых полей следующих 6 дней недели
         tvArray = new String[6];
@@ -153,10 +153,14 @@ public class MainActivity extends AppCompatActivity {
         dayTemp.setText(R.string.noData);
         nightTemp.setText(R.string.noData);
         weatherText.setText(R.string.noData);
+        LinearLayout dayLayout =(LinearLayout)findViewById(R.id.dayLayout);
         for (int i = 0; i <= 5; i++) {
-            tvArray[i] = getString(R.string.noData);
+            ConstraintLayout layout= (ConstraintLayout)dayLayout.getChildAt(i);
+            TextView dateText = (TextView)layout.getChildAt(0);
+            TextView weatherText = (TextView)layout.getChildAt(1);
+            dateText.setText(R.string.noData);
+            weatherText.setText(R.string.noData);
         }
-        refreshDayshList();
         Toast.makeText(MainActivity.this, getString(R.string.criticalError), Toast.LENGTH_SHORT).show();
     }
 
@@ -164,8 +168,15 @@ public class MainActivity extends AppCompatActivity {
      * Обновление данных о погоде
      */
     private void refreshDayshList() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getApplicationContext(), android.R.layout.simple_list_item_1, tvArray);
-        listView.setAdapter(adapter);
+        LinearLayout dayLayout =(LinearLayout)findViewById(R.id.dayLayout);
+        for(int i=0;i<=5;i++){
+          ConstraintLayout layout= (ConstraintLayout)dayLayout.getChildAt(i);
+            TextView dateText = (TextView)layout.getChildAt(0);
+            TextView weatherText = (TextView)layout.getChildAt(1);
+            WeatherInfo info = weatherInfoVector.get(i + 1);
+            dateText.setText(info.getShortDate());
+            weatherText.setText(info.getShortInfoOnlyWeather());
+        }
     }
 
     private void showWeatherData() {
