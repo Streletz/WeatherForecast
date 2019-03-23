@@ -143,7 +143,8 @@
                         android:layout_marginTop="8dp"
                         android:text="TextView"
                         app:layout_constraintTop_toBottomOf="@+id/textView3"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -169,7 +170,8 @@
                         android:layout_marginTop="7dp"
                         android:text="TextView"
                         app:layout_constraintTop_toBottomOf="@+id/textView4"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -194,7 +196,8 @@
                         android:layout_marginTop="8dp"
                         android:text="TextView"
                         app:layout_constraintTop_toBottomOf="@+id/textView5"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -218,7 +221,8 @@
                         android:layout_marginTop="8dp"
                         android:text="TextView"
                         app:layout_constraintTop_toBottomOf="@+id/textView6"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -242,7 +246,8 @@
                         android:layout_marginTop="8dp"
                         android:text="TextView"
                         app:layout_constraintTop_toBottomOf="@+id/textView7"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -267,7 +272,8 @@
                         android:layout_marginTop="8dp"
                         android:text="TextView"
                         app:layout_constraintTop_toBottomOf="@+id/textView8"
-                        tools:layout_editor_absoluteX="0dp" />
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:ignore="MissingConstraints" />
                 </android.support.constraint.ConstraintLayout>
 
                 <!--<android.support.constraint.ConstraintLayout

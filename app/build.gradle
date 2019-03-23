@@ -5,18 +5,18 @@ android {
         config {
             keyAlias 'WI7!'
             keyPassword '1JHBb&1hg'
-            storeFile file('C:/Android_Projects/WeatherInfo/Сертификат/cert.jks')
+            storeFile file('D:/AndroidProjects/WeatherInfo/cert/cert.jks')
             storePassword '^fdAf1Jvs6'
         }
     }
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "streletzcoder.weatherinfo"
+        applicationId 'streletzcoder.soft.weatherinfo'
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 14
-        versionName '7.0'
+        targetSdkVersion 24
+        versionCode 15
+        versionName '7.0.1'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -30,8 +30,8 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:24.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

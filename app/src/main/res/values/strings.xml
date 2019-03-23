@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Прогноз погоды</string>
     <string name="short_title">Погода</string>
-    <string name="version_info">5.5</string>
-    <string name="year_start">2015-2017</string>
+    <string name="version_info">7.0.1</string>
+    <string name="year_start">2015-2019</string>
     <string name="today">Сегодня</string>
     <string name="dayTemp">День,°C </string>
     <string name="nightTemp">Ночь,°C </string>

@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,7 +37,7 @@ public class DbHelper extends SQLiteOpenHelper {
         super(con, con.getString(R.string.db_name), null, DATABASE_VERSION);
         this.fContext = con;
         DB_NAME = fContext.getString(R.string.db_name);
-        DB_PATH = "/data/data/" + fContext.getPackageName() + "/databases/";
+        DB_PATH=fContext.getDatabasePath(DB_NAME).getPath();
     }
 
     /**
@@ -61,8 +62,8 @@ public class DbHelper extends SQLiteOpenHelper {
     private boolean checkDataBase() {
         SQLiteDatabase checkDB = null;
         try {
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+            //String myPath = DB_PATH + DB_NAME;
+            checkDB = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
             //файл базы данных отсутствует
         }
@@ -79,7 +80,7 @@ public class DbHelper extends SQLiteOpenHelper {
      */
     private void copyDataBase() throws IOException {
         InputStream input = fContext.getAssets().open(DB_NAME);
-        String outFileName = DB_PATH + DB_NAME;
+        String outFileName = DB_PATH;
         OutputStream output = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int length;
@@ -92,7 +93,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void openDataBase() throws SQLException {
-        String path = DB_PATH + DB_NAME;
+        String path = DB_PATH;
         dataBase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
     }
 

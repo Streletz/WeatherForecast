@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            deleteDataBase();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            deleteDataBase();
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
         dayTemp = (TextView) findViewById(R.id.dayTemp);
         nightTemp = (TextView) findViewById(R.id.nightTemp);
         cityTitle = (TextView) findViewById(R.id.cityTitle);
