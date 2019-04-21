@@ -25,6 +25,7 @@
     <string name="criticalError">Невозможно загрузить данные! Вероятно отсутствует доступ в Интернет.</string>
     <string name="appwidget_text">-------</string>
     <string name="add_widget">Add widget</string>
+    <string name="week">Прогноз на неделю:</string>
     <!-- Параметры подключения к БД-->
     <string name="db_name">scweatherinfo.db</string>
 </resources>

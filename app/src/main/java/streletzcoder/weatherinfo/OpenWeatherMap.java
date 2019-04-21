@@ -1,21 +1,19 @@
 package streletzcoder.weatherinfo;
 
-/**
- * Created by Стрелец Coder on 03.12.2015.
- * Класс для работы с API сайта openweathermap
- */
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Vector;
+import java.util.ArrayList;
 
+/**
+ * Created by Стрелец Coder on 03.12.2015.
+ * Класс для работы с API сайта openweathermap
+ */
 public class OpenWeatherMap {
     //Строка GET запроса
     private String url;
@@ -25,9 +23,9 @@ public class OpenWeatherMap {
     }
 
 
-    private JSONObject getJSONData(String site_url) throws IOException, JSONException {
+    private JSONObject getJSONData(String site_url) throws IOException {
         /*Загрузка JSON*/
-        String res = "";
+        String res;
         //Отправляем GET запрос и получаем данные с сайта
         URL url = new URL(site_url);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -48,11 +46,10 @@ public class OpenWeatherMap {
         }
     }
 
-    public Vector<WeatherInfo> getWeatherArray() {
+    public ArrayList<WeatherInfo> getWeatherArray() {
+        ArrayList<WeatherInfo> result = new ArrayList<>();
         /*Выдача структурированных данных о погоде*/
-        JSONObject json = null;
-        Vector<WeatherInfo> infoVector = new Vector<WeatherInfo>();
-       //  = null;
+        JSONObject json;
         try {
             json = getJSONData(url);
             if (json != null) {
@@ -73,7 +70,7 @@ public class OpenWeatherMap {
                     builder.setWeatherDescription(joDay.getJSONArray("weather").getJSONObject(0).getString("description"));
                     //Выдаём готовый объект WeatherInfo и добавляем его в вектор
                     WeatherInfo info = builder.getWeatherInfo();
-                    infoVector.add(info);
+                    result.add(info);
                 }
             } else {
                 return null;
@@ -85,7 +82,7 @@ public class OpenWeatherMap {
             e.printStackTrace();
             return null;
         }
-        return infoVector;
+        return result;
     }
 
 

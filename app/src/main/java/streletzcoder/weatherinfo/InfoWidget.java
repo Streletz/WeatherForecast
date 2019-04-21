@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.RemoteViews;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
@@ -47,14 +48,14 @@ public class InfoWidget extends AppWidgetProvider {
     }
 
     private static void getWeather(Context context, RemoteViews views, DbRepository repository) {
-        Vector<WeatherInfo> weatherInfoVector;
+        ArrayList<WeatherInfo> weatherInfoVector= new ArrayList<>();
         String showingWeatherText = "";
         HttpTask ht = new HttpTask();
-        AsyncTask<String, Void, Vector<WeatherInfo>> s = ht.execute(repository.getDataRequestString());
+        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(repository.getDataRequestString());
         try {
             //Извлекаем полученные данные о погоде
-            weatherInfoVector = s.get();
-            if (weatherInfoVector != null) {
+            weatherInfoVector.addAll(s.get());
+            if ((weatherInfoVector != null)&&(weatherInfoVector.size()>0)) {
                 /*Если данные есть выводим их на экран*/
                 WeatherInfo todayWeatherInfo = weatherInfoVector.get(0);
                 //Температура день-ночь

@@ -8,23 +8,24 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
 import streletzcoder.weatherinfo.dataengine.DbRepository;
+import streletzcoder.weatherinfo.gui_adapters.DaysListAdapter;
 import streletzcoder.weatherinfo.network.HttpTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView weatherText;
     private String tvArray[];
     /*ВЕКТОР ДАННЫХ О ПОГОДЕ*/
-    Vector<WeatherInfo> weatherInfoVector;
+    ArrayList<WeatherInfo> weatherInfoArray = new ArrayList<>();
     //БД
     private DbRepository repository;
     //Настройки не хранящиеся в БД
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "scwisettings";
     //Признак новой установки
     private boolean newInstanse;
-    private  boolean copied;
+    private boolean copied;
+    private RecyclerView daysListRecycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +60,16 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (PackageManager.NameNotFoundException e) {
 //            e.printStackTrace();
 //        }
-        dayTemp = (TextView) findViewById(R.id.dayTemp);
-        nightTemp = (TextView) findViewById(R.id.nightTemp);
-        cityTitle = (TextView) findViewById(R.id.cityTitle);
-        currentDayTitle = (TextView) findViewById(R.id.currentDayTitle);
-        weatherText = (TextView) findViewById(R.id.weatherText);
+        dayTemp = findViewById(R.id.dayTemp);
+        nightTemp = findViewById(R.id.nightTemp);
+        cityTitle = findViewById(R.id.cityTitle);
+        currentDayTitle = findViewById(R.id.currentDayTitle);
+        weatherText = findViewById(R.id.weatherText);
         repository = new DbRepository(this.getApplicationContext());
         //Инициализация текстовых полей следующих 6 дней недели
         tvArray = new String[6];
+        daysListRecycler = findViewById(R.id.daysListRecycler);
+        daysListRecycler.setLayoutManager(new LinearLayoutManager(this));
         setTitle(R.string.short_title);
     }
 
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         DB_NAME = getString(R.string.db_name);
         appSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         String oldPackageVersion = appSettings.getString("oldPackageVersion", "5.9");
-        String newPackageVersion=getPackageManager().getPackageInfo(getPackageName(),0).versionName;
+        String newPackageVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         //Если установка не новая, удаляем БД перед обновлением
         if (!oldPackageVersion.equals(newPackageVersion)) {
             File dbFile = new File(DB_PATH + DB_NAME);
@@ -85,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 dbFile.delete();
             }
             SharedPreferences.Editor editor = appSettings.edit();
-            editor.putString("oldPackageVersion",newPackageVersion);
+            editor.putString("oldPackageVersion", newPackageVersion);
             editor.apply();
         }
     }
@@ -130,11 +134,12 @@ public class MainActivity extends AppCompatActivity {
         cityTitle.setText(repository.getSelectedCityName());
         //Получаем сведения о погоде с сайта
         HttpTask ht = new HttpTask();
-        AsyncTask<String, Void, Vector<WeatherInfo>> s = ht.execute(repository.getDataRequestString());
+        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(repository.getDataRequestString());
         try {
             //Извлекаем полученные данные о погоде
-            weatherInfoVector = s.get();
-            if (weatherInfoVector != null) {
+            weatherInfoArray.clear();
+            weatherInfoArray.addAll(s.get());
+            if ((weatherInfoArray != null) && (weatherInfoArray.size() > 0)) {
                 /*Если данные есть выводим их на экран*/
                 showWeatherData();
             } else {
@@ -153,14 +158,7 @@ public class MainActivity extends AppCompatActivity {
         dayTemp.setText(R.string.noData);
         nightTemp.setText(R.string.noData);
         weatherText.setText(R.string.noData);
-        LinearLayout dayLayout =(LinearLayout)findViewById(R.id.dayLayout);
-        for (int i = 0; i <= 5; i++) {
-            ConstraintLayout layout= (ConstraintLayout)dayLayout.getChildAt(i);
-            TextView dateText = (TextView)layout.getChildAt(0);
-            TextView weatherText = (TextView)layout.getChildAt(1);
-            dateText.setText(R.string.noData);
-            weatherText.setText(R.string.noData);
-        }
+
         Toast.makeText(MainActivity.this, getString(R.string.criticalError), Toast.LENGTH_SHORT).show();
     }
 
@@ -168,30 +166,20 @@ public class MainActivity extends AppCompatActivity {
      * Обновление данных о погоде
      */
     private void refreshDayshList() {
-        LinearLayout dayLayout =(LinearLayout)findViewById(R.id.dayLayout);
-        for(int i=0;i<=5;i++){
-          ConstraintLayout layout= (ConstraintLayout)dayLayout.getChildAt(i);
-            TextView dateText = (TextView)layout.getChildAt(0);
-            TextView weatherText = (TextView)layout.getChildAt(1);
-            WeatherInfo info = weatherInfoVector.get(i + 1);
-            dateText.setText(info.getShortDate());
-            weatherText.setText(info.getShortInfoOnlyWeather());
-        }
+        DaysListAdapter adapter = new DaysListAdapter(this, weatherInfoArray);
+        daysListRecycler.setAdapter(adapter);
     }
 
     private void showWeatherData() {
         /*Отображение данных о погоде*/
         //Данные на сегодня
-        WeatherInfo todayWeatherInfo = weatherInfoVector.get(0);
+        WeatherInfo todayWeatherInfo = weatherInfoArray.get(0);
         //Температура день-ночь
         dayTemp.setText(String.valueOf(todayWeatherInfo.getDayTemp()));
         nightTemp.setText(String.valueOf(todayWeatherInfo.getNightTemp()));
         //Описание погоды
         weatherText.setText(todayWeatherInfo.getWeatherDescription());
         //Данные о погоде на следующие 6 дней
-        for (int i = 0; i <= 5; i++) {
-            tvArray[i] = weatherInfoVector.get(i + 1).getShortInfo();
-        }
         refreshDayshList();
     }
 
