@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/aboutInfoItem"
+        android:icon="@drawable/information_outline"
         android:orderInCategory="1"
-        android:icon="@drawable/about"
         android:title="О Программе"
         resauto:showAsAction="always"
         tools:ignore="MenuTitle" />

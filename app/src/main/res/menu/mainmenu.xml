@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/refreshItem"
+        android:icon="@drawable/autorenew"
         android:orderInCategory="0"
-        android:icon="@drawable/refresh"
         android:title="Обновить"
         resauto:showAsAction="always"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/settingsItem"
+        android:icon="@drawable/cloud_outline"
         android:orderInCategory="0"
-        android:icon="@drawable/settings"
         android:title="Настройки"
         resauto:showAsAction="always"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/aboutInfoItem"
+        android:icon="@drawable/information_outline"
         android:orderInCategory="1"
-        android:icon="@drawable/about"
         android:title="О Программе"
         resauto:showAsAction="always"
         tools:ignore="MenuTitle" />

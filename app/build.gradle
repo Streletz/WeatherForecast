@@ -9,12 +9,12 @@ android {
             storePassword '^fdAf1Jvs6'
         }
     }
-    compileSdkVersion 24
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId 'streletzcoder.soft.weatherinfo'
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 27
         versionCode 15
         versionName '7.0.1'
         signingConfig signingConfigs.config
@@ -32,6 +32,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:24.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }
