@@ -1,80 +1,1 @@
-# WeatherForecast
-Weather forecast for Android.
-
-- main/.................source files
-- LICENSE_EN............license of "WeatherForecast" in English
-- LICENSE_RU............license of "WeatherForecast" in Russian
-- README................this file
-
-# Update Info
-
-7.0
-=================
-- A modified design of the program;
-- Fixed several bugs.
-
-6.2
-=================
-- Added new town.
-
-6.1
-=================
-
-- Fixed several bugs.
-
-6.0
-=================
-
-- Support Android 7;
-- A completely new mechanism of work with the database;
-- Added new town;
-- Added support for weather forecasts for a few countries (only Russia, Belarus and Kazakhstan partly, but in the future the list of countries and cities will be expanded);
-- The city list is now sorted strictly alphabetically;
-- Modified user interface;
-- Fixed several bugs.
-
-5.4
-=================
-- Added new town.
-
-5.3
-=================
-- Added new town.
-
-5.2
-=================
-- Added new town;
-- Fixed several bugs.
-
-5.1
-=================
-- Added new town.
-
-5.0
-=================
-- Added new town;
-- Added display of the selected city on the main screen;
-- 2 times reduced the update interval of the widget (the widget is updated every 2 minutes, 30 seconds);
-- Added the ability to refresh the widget manually. Just clicking on it;
-- Fixed several bugs.
-
-4.0
-=================
-- Added new town;
-- Fixed several bugs.
-
-3.1
-=================
-- Added new town;
-- Modified design;
-- Added widget for home screen (data refresh every 5 minutes).
-
-3.0
-=================
-- Added support for weather forecast for multiple cities.
-
-2.0
-=================
-- Improved design and user interface;
-- Fixed a bug when using the device fonts;
-- Fixed a bug in the menu of the main screen.
+﻿# WeatherForecastWeather forecast for Android.- main/.................source files- LICENSE_EN............license of "WeatherForecast" in English- LICENSE_RU............license of "WeatherForecast" in Russian- README................this file# Update Info8.0.0=================- Changed the design of the forecast for the week;;- Automatic update of weather data every 12 hours- Fixed several bugs.7.0.1=================- Fixed several bugs.7.0=================- A modified design of the program;- Fixed several bugs.6.2=================- Added new town.6.1=================- Fixed several bugs.6.0=================- Support Android 7;- A completely new mechanism of work with the database;- Added new town;- Added support for weather forecasts for a few countries (only Russia, Belarus and Kazakhstan partly, but in the future the list of countries and cities will be expanded);- The city list is now sorted strictly alphabetically;- Modified user interface;- Fixed several bugs.5.4=================- Added new town.5.3=================- Added new town.5.2=================- Added new town;- Fixed several bugs.5.1=================- Added new town.5.0=================- Added new town;- Added display of the selected city on the main screen;- 2 times reduced the update interval of the widget (the widget is updated every 2 minutes, 30 seconds);- Added the ability to refresh the widget manually. Just clicking on it;- Fixed several bugs.4.0=================- Added new town;- Fixed several bugs.3.1=================- Added new town;- Modified design;- Added widget for home screen (data refresh every 5 minutes).3.0=================- Added support for weather forecast for multiple cities.2.0=================- Improved design and user interface;- Fixed a bug when using the device fonts;- Fixed a bug in the menu of the main screen.
