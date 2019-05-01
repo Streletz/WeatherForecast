@@ -6,14 +6,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +20,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 import streletzcoder.weatherinfo.dataengine.DbRepository;
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean newInstanse;
     private boolean copied;
     private RecyclerView daysListRecycler;
+    Timer timer = new Timer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         daysListRecycler = findViewById(R.id.daysListRecycler);
         daysListRecycler.setLayoutManager(new LinearLayoutManager(this));
         setTitle(R.string.short_title);
+        timer.schedule(new UpdateTimerTask(), 0, 12 * 60 * 60 * 1000);
     }
 
     /**
@@ -105,10 +107,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         /*Обработка событий меню*/
         switch (item.getItemId()) {
-            //Обновление данных о погоде через меню
-            case R.id.refreshItem:
-                loadWeatherData();
-                break;
             //Вызов окна настроек через меню
             case R.id.settingsItem:
                 showSettingsActivity();
@@ -127,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
         loadWeatherData();
     }
 
+    /**
+     * Загрузка данных о погоде
+     */
     private void loadWeatherData() {
         /*Загрузка данных о погоде*/
         //Получаем сегодняшнюю дату
@@ -158,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
         dayTemp.setText(R.string.noData);
         nightTemp.setText(R.string.noData);
         weatherText.setText(R.string.noData);
-
         Toast.makeText(MainActivity.this, getString(R.string.criticalError), Toast.LENGTH_SHORT).show();
     }
 
@@ -200,4 +200,20 @@ public class MainActivity extends AppCompatActivity {
         Intent aboutIntent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(aboutIntent);
     }
+
+    /**
+     * Класс задачи для таймера по обновлению данных о погоде.
+     */
+    class UpdateTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    loadWeatherData();
+                }
+            });
+        }
+    }
+
 }

@@ -3,13 +3,6 @@
     xmlns:resauto="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
-        android:id="@+id/refreshItem"
-        android:icon="@drawable/autorenew"
-        android:orderInCategory="0"
-        android:title="Обновить"
-        resauto:showAsAction="always"
-        tools:ignore="MenuTitle" />
-    <item
         android:id="@+id/settingsItem"
         android:icon="@drawable/cloud_outline"
         android:orderInCategory="0"
