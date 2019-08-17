@@ -17,34 +17,43 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
+import streletzcoder.weatherinfo.dataengine.AppDatabase;
 import streletzcoder.weatherinfo.dataengine.CityCodeFields;
 import streletzcoder.weatherinfo.dataengine.CountryFields;
 import streletzcoder.weatherinfo.dataengine.DbRepository;
+import streletzcoder.weatherinfo.dataengine.models.CityCodes;
+import streletzcoder.weatherinfo.dataengine.models.CitySelected;
+import streletzcoder.weatherinfo.dataengine.models.Country;
+import streletzcoder.weatherinfo.dataengine.models.CountrySelected;
+import streletzcoder.weatherinfo.dataengine.models.CountryWithCitys;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private Button buttonOk;
     private Spinner citySelect;
     private Spinner countrySelect;
-    //private DbRepository repository;
-    private ArrayList<String> cityList;
-    private ArrayList<String> countryList;
+    private ArrayList<String> cityList = new ArrayList<>();
+    private ArrayList<String> countryList = new ArrayList<>();
+    private AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        database = App.getInstance().getDatabase();
         //Включение кнопки "Назад"
-        ActionBar actionBar =getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         //Инициализация интерфейса
         buttonOk = (Button) findViewById(R.id.buttonOk);
         citySelect = (Spinner) findViewById(R.id.citySelect);
         countrySelect = (Spinner) findViewById(R.id.countrySelect);
-      //  repository = new DbRepository(this.getApplicationContext());
+
         //Получаем из БД список стран и заполняем spinner
-       // countryList = repository.getCountryData(null, CountryFields.COUNTRY);
+        for (Country country : database.daoCountry().getAll()) {
+            countryList.add(country.Country);
+        }
         ArrayAdapter<String> countryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countryList);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySelect.setAdapter(countryAdapter);
@@ -61,8 +70,9 @@ public class SettingsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 saveCountryPosition();
                 fillCityes();
-           //     citySelect.setSelection(cityList.indexOf(repository.getSelectedCityName()));
-                saveCityPosition();
+                String cityName = database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).City;
+                citySelect.setSelection(cityList.indexOf(cityName));
+                // saveCityPosition();
             }
 
             @Override
@@ -73,8 +83,9 @@ public class SettingsActivity extends AppCompatActivity {
         citySelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                saveCityPosition();
+                // saveCityPosition();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 //Заглушка
@@ -110,8 +121,10 @@ public class SettingsActivity extends AppCompatActivity {
     private void fillCityes() {
         //Получаем из БД список городов и заполняем spinner
         citySelect.setAdapter(null);
-        cityList = null;
-       // cityList = repository.getData(null, CityCodeFields.CITY);
+        cityList.clear();
+        for (CityCodes cityCodes : database.daoCountry().getCountryWithCitys(database.daoCountrySelected().getAll().get(0).CountryId).cityCodes) {
+            cityList.add(cityCodes.City);
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cityList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySelect.setAdapter(adapter);
@@ -125,14 +138,19 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initializeSettings() {
         //Считываем ранее выбранную страну
-       // countrySelect.setSelection(countryList.indexOf(repository.getSelectedCountryName()));
+        countrySelect.setSelection(countryList.indexOf(database.daoCountry().getById(database.daoCountrySelected().getAll().get(0).CountryId).Country));
         //Считываем выбранный ранее город
-       // citySelect.setSelection(cityList.indexOf(repository.getSelectedCityName()));
+        String cityName = database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).City;
+        int a = cityList.indexOf(cityName);
+        citySelect.setSelection(cityList.indexOf(cityName));
     }
 
     private void saveCityPosition() {
         //Сохраняем выбранный город
-       // repository.setSelectedCity(citySelect.getSelectedItem().toString());
+        CitySelected citySelected = database.daoCitySelected().getAll().get(0);
+        CityCodes cityCode = database.daoCity().getByCity(citySelect.getSelectedItem().toString());
+        citySelected.CityId = cityCode._id;
+        database.daoCitySelected().update(citySelected);
         //Быстрое обновление при смене города
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int ids[] = appWidgetManager.getAppWidgetIds(new ComponentName(this.getApplicationContext().getPackageName(), InfoWidget.class.getName()));
@@ -146,8 +164,14 @@ public class SettingsActivity extends AppCompatActivity {
      * Сохраняем выбранную страну
      */
     private void saveCountryPosition() {
-       // repository.setSelectedCountry(countrySelect.getSelectedItem().toString());
+        String countryName = countrySelect.getSelectedItem().toString();
+        Country country = database.daoCountry().getByCountry(countryName);
+        CountrySelected countrySelected = database.daoCountrySelected().getAll().get(0);
+        countrySelected.CountryId = country._id;
+        database.daoCountrySelected().update(countrySelected);
+        // repository.setSelectedCountry(countrySelect.getSelectedItem().toString());
     }
+
     private void showAboutActivity() {
         /*Вызов экрана "О Программе"*/
         Intent aboutIntent = new Intent(SettingsActivity.this, AboutActivity.class);

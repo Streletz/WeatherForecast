@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         cityTitle.setText(database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).City);
         //Получаем сведения о погоде с сайта
         HttpTask ht = new HttpTask();
-        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(getDataRequestString());
+        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(HttpTask.getDataRequestString(this,database));
         try {
             //Извлекаем полученные данные о погоде
             weatherInfoArray.clear();
@@ -220,9 +220,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String getDataRequestString() {
 
-        return getString(R.string.dataUrl) + database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).Code + getString(R.string.key);
-    }
 
 }

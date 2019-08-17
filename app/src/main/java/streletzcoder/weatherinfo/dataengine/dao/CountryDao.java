@@ -20,6 +20,9 @@ public interface CountryDao {
     @Query("SELECT * FROM Country WHERE _id = :id")
     Country getById(int id);
 
+    @Query("SELECT * FROM Country WHERE Country = :country")
+    Country getByCountry(String country);
+
     @Insert
     void insert(Country country);
 

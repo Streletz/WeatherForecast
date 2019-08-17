@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
+import streletzcoder.weatherinfo.dataengine.AppDatabase;
 import streletzcoder.weatherinfo.dataengine.DbRepository;
 import streletzcoder.weatherinfo.network.HttpTask;
 
@@ -26,36 +27,39 @@ public class InfoWidget extends AppWidgetProvider {
     private final int updateInterval = 150000;
     public static String ACTION_WIDGET_CLICKED = "ClickWidget";
     private PendingIntent service = null;
+    private static AppDatabase database;
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                        int appWidgetId) {
+        if (database == null) {
+            database = App.getInstance().getDatabase();
+        }
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.info_widget);
-        //DbRepository repository = new DbRepository(context);
         //Выводим название города
-        views.setTextViewText(R.id.appwidget_textHeader, "");
+        views.setTextViewText(R.id.appwidget_textHeader, database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).City);
         //Выводим погоду
-        //getWeather(context, views, repository);
+        getWeather(context, views);
         //Делаем виджет кликабельным
-        Intent clickIntent = new Intent(context,InfoWidget.class);
+        Intent clickIntent = new Intent(context, InfoWidget.class);
         clickIntent.setAction(ACTION_WIDGET_CLICKED);
-        PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context,0,clickIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.appwidget_textHeader,clickPendingIntent);
-        views.setOnClickPendingIntent(R.id.appwidget_textContent,clickPendingIntent);
+        PendingIntent clickPendingIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.appwidget_textHeader, clickPendingIntent);
+        views.setOnClickPendingIntent(R.id.appwidget_textContent, clickPendingIntent);
         // Обновляем информацию, отображаемую виджетом
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    private static void getWeather(Context context, RemoteViews views, DbRepository repository) {
-        ArrayList<WeatherInfo> weatherInfoVector= new ArrayList<>();
+    private static void getWeather(Context context, RemoteViews views) {
+        ArrayList<WeatherInfo> weatherInfoVector = new ArrayList<>();
         String showingWeatherText = "";
         HttpTask ht = new HttpTask();
-        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(repository.getDataRequestString());
+        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(HttpTask.getDataRequestString(context, database));
         try {
             //Извлекаем полученные данные о погоде
             weatherInfoVector.addAll(s.get());
-            if ((weatherInfoVector != null)&&(weatherInfoVector.size()>0)) {
+            if ((weatherInfoVector != null) && (weatherInfoVector.size() > 0)) {
                 /*Если данные есть выводим их на экран*/
                 WeatherInfo todayWeatherInfo = weatherInfoVector.get(0);
                 //Температура день-ночь
@@ -78,23 +82,23 @@ public class InfoWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-      //Заглушка
+        //Заглушка
     }
+
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
-        final AlarmManager manager=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+    public void onReceive(Context context, Intent intent) {
+        final AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         final Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.SECOND, 0);
         startTime.set(Calendar.MILLISECOND, 0);
         final Intent i = new Intent(context, WeatherForecastWidgetUpdateService.class);
-        if (service == null)
-        {
+        if (service == null) {
             service = PendingIntent.getService(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
         }
-        manager.setRepeating(AlarmManager.RTC,startTime.getTime().getTime(),updateInterval,service);
+        manager.setRepeating(AlarmManager.RTC, startTime.getTime().getTime(), updateInterval, service);
     }
+
     @Override
     public void onEnabled(Context context) {
         //Заглушка

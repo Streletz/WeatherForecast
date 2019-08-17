@@ -18,6 +18,9 @@ public interface CityDao {
     @Query("SELECT * FROM CityCodes WHERE Code = :code")
     CityCodes getByCode(String code);
 
+    @Query("SELECT * FROM CityCodes WHERE City = :city")
+    CityCodes getByCity(String city);
+
     @Query("SELECT * FROM CityCodes WHERE _id = :id")
     CityCodes getById(int id);
 
