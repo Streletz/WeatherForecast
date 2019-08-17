@@ -49,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private String tvArray[];
     /*ВЕКТОР ДАННЫХ О ПОГОДЕ*/
     ArrayList<WeatherInfo> weatherInfoArray = new ArrayList<>();
-    //БД
-    //private DbRepository repository;
-    //Настройки не хранящиеся в БД
     private String DB_PATH;
     private String DB_NAME;
     private SharedPreferences appSettings;
@@ -77,19 +74,13 @@ public class MainActivity extends AppCompatActivity {
         cityTitle = findViewById(R.id.cityTitle);
         currentDayTitle = findViewById(R.id.currentDayTitle);
         weatherText = findViewById(R.id.weatherText);
-        //repository = new DbRepository(this.getApplicationContext());
         //Инициализация текстовых полей следующих 6 дней недели
         tvArray = new String[6];
         daysListRecycler = findViewById(R.id.daysListRecycler);
         daysListRecycler.setLayoutManager(new LinearLayoutManager(this));
         setTitle(R.string.short_title);
         timer.schedule(new UpdateTimerTask(), 0, 12 * 60 * 60 * 1000);
-//        database = Room.databaseBuilder(this.getApplicationContext(),
-//                AppDatabase.class,
-//                getString(R.string.db_name))
-//                .openHelperFactory(new AssetSQLiteOpenHelperFactory())
-//                .allowMainThreadQueries()
-//                .build();
+        // БД
         DbHelper helper = new DbHelper(this);
         try {
             helper.createDataBase();
@@ -107,26 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Удаление старой БД при обновлении приложения
-     */
-    private void deleteDataBase() throws PackageManager.NameNotFoundException {
-        DB_PATH = "/data/data/" + getPackageName() + "/databases/";
-        DB_NAME = getString(R.string.db_name);
-        appSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        String oldPackageVersion = appSettings.getString("oldPackageVersion", "5.9");
-        String newPackageVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        //Если установка не новая, удаляем БД перед обновлением
-        if (!oldPackageVersion.equals(newPackageVersion)) {
-            File dbFile = new File(DB_PATH + DB_NAME);
-            if (dbFile.exists()) {
-                dbFile.delete();
-            }
-            SharedPreferences.Editor editor = appSettings.edit();
-            editor.putString("oldPackageVersion", newPackageVersion);
-            editor.apply();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {/*Иницализация меню*/
@@ -164,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         /*Загрузка данных о погоде*/
         //Получаем сегодняшнюю дату
         currentDayTitle.setText(getFormattedDate());
-        //cityTitle.setText(repository.getSelectedCityName());
+        cityTitle.setText(database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).City);
         //Получаем сведения о погоде с сайта
         HttpTask ht = new HttpTask();
         AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(getDataRequestString());
