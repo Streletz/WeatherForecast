@@ -26,7 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     private Button buttonOk;
     private Spinner citySelect;
     private Spinner countrySelect;
-    private DbRepository repository;
+    //private DbRepository repository;
     private ArrayList<String> cityList;
     private ArrayList<String> countryList;
 
@@ -42,9 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
         buttonOk = (Button) findViewById(R.id.buttonOk);
         citySelect = (Spinner) findViewById(R.id.citySelect);
         countrySelect = (Spinner) findViewById(R.id.countrySelect);
-        repository = new DbRepository(this.getApplicationContext());
+      //  repository = new DbRepository(this.getApplicationContext());
         //Получаем из БД список стран и заполняем spinner
-        countryList = repository.getCountryData(null, CountryFields.COUNTRY);
+       // countryList = repository.getCountryData(null, CountryFields.COUNTRY);
         ArrayAdapter<String> countryAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, countryList);
         countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countrySelect.setAdapter(countryAdapter);
@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 saveCountryPosition();
                 fillCityes();
-                citySelect.setSelection(cityList.indexOf(repository.getSelectedCityName()));
+           //     citySelect.setSelection(cityList.indexOf(repository.getSelectedCityName()));
                 saveCityPosition();
             }
 
@@ -111,7 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
         //Получаем из БД список городов и заполняем spinner
         citySelect.setAdapter(null);
         cityList = null;
-        cityList = repository.getData(null, CityCodeFields.CITY);
+       // cityList = repository.getData(null, CityCodeFields.CITY);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cityList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySelect.setAdapter(adapter);
@@ -125,14 +125,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initializeSettings() {
         //Считываем ранее выбранную страну
-        countrySelect.setSelection(countryList.indexOf(repository.getSelectedCountryName()));
+       // countrySelect.setSelection(countryList.indexOf(repository.getSelectedCountryName()));
         //Считываем выбранный ранее город
-        citySelect.setSelection(cityList.indexOf(repository.getSelectedCityName()));
+       // citySelect.setSelection(cityList.indexOf(repository.getSelectedCityName()));
     }
 
     private void saveCityPosition() {
         //Сохраняем выбранный город
-        repository.setSelectedCity(citySelect.getSelectedItem().toString());
+       // repository.setSelectedCity(citySelect.getSelectedItem().toString());
         //Быстрое обновление при смене города
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int ids[] = appWidgetManager.getAppWidgetIds(new ComponentName(this.getApplicationContext().getPackageName(), InfoWidget.class.getName()));
@@ -146,7 +146,7 @@ public class SettingsActivity extends AppCompatActivity {
      * Сохраняем выбранную страну
      */
     private void saveCountryPosition() {
-        repository.setSelectedCountry(countrySelect.getSelectedItem().toString());
+       // repository.setSelectedCountry(countrySelect.getSelectedItem().toString());
     }
     private void showAboutActivity() {
         /*Вызов экрана "О Программе"*/

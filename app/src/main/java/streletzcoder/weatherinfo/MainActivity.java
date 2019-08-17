@@ -1,5 +1,6 @@
 package streletzcoder.weatherinfo;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,15 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
+import streletzcoder.weatherinfo.dataengine.AppDatabase;
+import streletzcoder.weatherinfo.dataengine.DbHelper;
 import streletzcoder.weatherinfo.dataengine.DbRepository;
+import streletzcoder.weatherinfo.dataengine.models.CityCodes;
+import streletzcoder.weatherinfo.dataengine.models.CitySelected;
+import streletzcoder.weatherinfo.dataengine.models.Country;
+import streletzcoder.weatherinfo.dataengine.models.CountrySelected;
+import streletzcoder.weatherinfo.dataengine.models.CountryWithCitys;
 import streletzcoder.weatherinfo.gui_adapters.DaysListAdapter;
 import streletzcoder.weatherinfo.network.HttpTask;
 
@@ -40,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     /*ВЕКТОР ДАННЫХ О ПОГОДЕ*/
     ArrayList<WeatherInfo> weatherInfoArray = new ArrayList<>();
     //БД
-    private DbRepository repository;
+    //private DbRepository repository;
     //Настройки не хранящиеся в БД
     private String DB_PATH;
     private String DB_NAME;
@@ -51,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean copied;
     private RecyclerView daysListRecycler;
     Timer timer = new Timer();
+    private AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +77,34 @@ public class MainActivity extends AppCompatActivity {
         cityTitle = findViewById(R.id.cityTitle);
         currentDayTitle = findViewById(R.id.currentDayTitle);
         weatherText = findViewById(R.id.weatherText);
-        repository = new DbRepository(this.getApplicationContext());
+        //repository = new DbRepository(this.getApplicationContext());
         //Инициализация текстовых полей следующих 6 дней недели
         tvArray = new String[6];
         daysListRecycler = findViewById(R.id.daysListRecycler);
         daysListRecycler.setLayoutManager(new LinearLayoutManager(this));
         setTitle(R.string.short_title);
         timer.schedule(new UpdateTimerTask(), 0, 12 * 60 * 60 * 1000);
+//        database = Room.databaseBuilder(this.getApplicationContext(),
+//                AppDatabase.class,
+//                getString(R.string.db_name))
+//                .openHelperFactory(new AssetSQLiteOpenHelperFactory())
+//                .allowMainThreadQueries()
+//                .build();
+        DbHelper helper = new DbHelper(this);
+        try {
+            helper.createDataBase();
+            database = App.getInstance().getDatabase();
+            List<CityCodes> codes = database.daoCity().getAll();
+            List<Country> countries = database.daoCountry().getAll();
+            List<CitySelected> citySelecteds = database.daoCitySelected().getAll();
+            List<CountrySelected> countrySelecteds = database.daoCountrySelected().getAll();
+            CountryWithCitys countryWithCitys = database.daoCountry().getCountryWithCitys(2);
+            List<CountryWithCitys> countryWithCitysList = database.daoCountry().getCountryWithCitys();
+            int a = 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+            finish();
+        }
     }
 
     /**
@@ -132,10 +164,10 @@ public class MainActivity extends AppCompatActivity {
         /*Загрузка данных о погоде*/
         //Получаем сегодняшнюю дату
         currentDayTitle.setText(getFormattedDate());
-        cityTitle.setText(repository.getSelectedCityName());
+        //cityTitle.setText(repository.getSelectedCityName());
         //Получаем сведения о погоде с сайта
         HttpTask ht = new HttpTask();
-        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(repository.getDataRequestString());
+        AsyncTask<String, Void, ArrayList<WeatherInfo>> s = ht.execute(getDataRequestString());
         try {
             //Извлекаем полученные данные о погоде
             weatherInfoArray.clear();
@@ -214,6 +246,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public String getDataRequestString() {
+
+        return getString(R.string.dataUrl) + database.daoCity().getById(database.daoCitySelected().getAll().get(0).CityId).Code + getString(R.string.key);
     }
 
 }

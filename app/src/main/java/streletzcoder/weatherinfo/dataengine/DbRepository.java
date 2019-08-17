@@ -52,7 +52,7 @@ public class DbRepository {
         } else {
             where1 = "CountryId=" + String.valueOf(getSelectedCountryId());
         }
-        Cursor cursor = db.query("CityCodes", null, where1, null, null, null, "City");
+        Cursor cursor = db.query("CityCodes", null, where1, null, null, null, "CityCodes");
         if ((cursor != null) && (cursor.getCount() > 0)) {
             cursor.moveToFirst();
             do {
@@ -225,7 +225,7 @@ public class DbRepository {
         ArrayList<String> list = new ArrayList<String>();
         String whereArgs[] = new String[1];
         whereArgs[0] = cityName;
-        Cursor cursor = db.query("CityCodes", null, "City=?", whereArgs, null, null, null);
+        Cursor cursor = db.query("CityCodes", null, "CityCodes=?", whereArgs, null, null, null);
         if ((cursor != null) && (cursor.getCount() > 0)) {
             cursor.moveToFirst();
             do {

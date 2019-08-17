@@ -24,7 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private String DB_PATH;
     private String DB_NAME;
     //Версия базы данных
-    private static final int DATABASE_VERSION = 22;
+    public static final int DATABASE_VERSION = 22;
     private Context fContext;
     private SQLiteDatabase dataBase;
     private boolean upgrading = false;

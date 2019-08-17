@@ -5,10 +5,9 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 @Entity
-public class Country {
+public class CitySelected {
     @PrimaryKey
-    @NonNull
+    //@NonNull
     public int _id;
-    @NonNull
-    public String Country;
+    public int CityId = 1;
 }

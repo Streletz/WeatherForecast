@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
-import com.streletz.streletz_sqlite_asset.AssetSQLiteOpenHelperFactory;
+
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -16,7 +16,7 @@ import streletzcoder.weatherinfo.dataengine.AppDatabase;
  * Created by Стрелец Coder on 04.12.2015.
  * Класс информации о погоде
  */
-public class WeatherInfo extends Application {
+public class WeatherInfo  {
     //Дата
     private Date date;
     //Тмпература (день, ночь)
@@ -26,7 +26,7 @@ public class WeatherInfo extends Application {
     private String weatherDescription;
 
 
-    private AppDatabase database;
+
 
     public void setDate(Date d) {
         //Установка даты
@@ -86,18 +86,18 @@ public class WeatherInfo extends Application {
         return s;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        database = Room.databaseBuilder(this.getApplicationContext(),
-                AppDatabase.class,
-                "database_name.db")
-                .openHelperFactory(new AssetSQLiteOpenHelperFactory())
-                .allowMainThreadQueries()
-                .build();
-    }
-
-    public AppDatabase getDatabase() {
-        return database;
-    }
+//    @Override
+//    public void onCreate() {
+//        super.onCreate();
+//        database = Room.databaseBuilder(this.getApplicationContext(),
+//                AppDatabase.class,
+//                "database_name.db")
+//                .openHelperFactory(new AssetSQLiteOpenHelperFactory())
+//                .allowMainThreadQueries()
+//                .build();
+//    }
+//
+//    public AppDatabase getDatabase() {
+//        return database;
+//    }
 }

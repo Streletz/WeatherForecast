@@ -32,11 +32,11 @@ public class InfoWidget extends AppWidgetProvider {
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.info_widget);
-        DbRepository repository = new DbRepository(context);
+        //DbRepository repository = new DbRepository(context);
         //Выводим название города
-        views.setTextViewText(R.id.appwidget_textHeader, repository.getSelectedCityName());
+        views.setTextViewText(R.id.appwidget_textHeader, "");
         //Выводим погоду
-        getWeather(context, views, repository);
+        //getWeather(context, views, repository);
         //Делаем виджет кликабельным
         Intent clickIntent = new Intent(context,InfoWidget.class);
         clickIntent.setAction(ACTION_WIDGET_CLICKED);
