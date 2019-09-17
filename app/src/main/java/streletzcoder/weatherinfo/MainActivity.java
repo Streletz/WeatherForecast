@@ -1,10 +1,7 @@
 package streletzcoder.weatherinfo;
 
-import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -29,13 +25,13 @@ import java.util.concurrent.ExecutionException;
 
 import streletzcoder.weatherinfo.dataengine.AppDatabase;
 import streletzcoder.weatherinfo.dataengine.DbHelper;
-import streletzcoder.weatherinfo.dataengine.DbRepository;
 import streletzcoder.weatherinfo.dataengine.models.CityCodes;
 import streletzcoder.weatherinfo.dataengine.models.CitySelected;
 import streletzcoder.weatherinfo.dataengine.models.Country;
 import streletzcoder.weatherinfo.dataengine.models.CountrySelected;
 import streletzcoder.weatherinfo.dataengine.models.CountryWithCitys;
 import streletzcoder.weatherinfo.gui_adapters.DaysListAdapter;
+import streletzcoder.weatherinfo.models.WeatherInfo;
 import streletzcoder.weatherinfo.network.HttpTask;
 
 public class MainActivity extends AppCompatActivity {

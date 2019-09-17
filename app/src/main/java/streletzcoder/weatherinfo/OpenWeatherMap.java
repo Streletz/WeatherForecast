@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import streletzcoder.weatherinfo.models.WeatherInfo;
+
 /**
  * Created by Стрелец Coder on 03.12.2015.
  * Класс для работы с API сайта openweathermap
@@ -68,6 +70,7 @@ public class OpenWeatherMap {
                     builder.setTemp(joDay.getJSONObject("temp").getDouble("day"), joDay.getJSONObject("temp").getDouble("night"));
                     //Получаем описание погоды
                     builder.setWeatherDescription(joDay.getJSONArray("weather").getJSONObject(0).getString("description"));
+                    builder.setWeatherType(joDay.getJSONArray("weather").getJSONObject(0).getString("main"));
                     //Выдаём готовый объект WeatherInfo и добавляем его в вектор
                     WeatherInfo info = builder.getWeatherInfo();
                     result.add(info);

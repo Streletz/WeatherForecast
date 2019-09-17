@@ -11,11 +11,10 @@ import android.widget.RemoteViews;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Vector;
 import java.util.concurrent.ExecutionException;
 
 import streletzcoder.weatherinfo.dataengine.AppDatabase;
-import streletzcoder.weatherinfo.dataengine.DbRepository;
+import streletzcoder.weatherinfo.models.WeatherInfo;
 import streletzcoder.weatherinfo.network.HttpTask;
 
 /**

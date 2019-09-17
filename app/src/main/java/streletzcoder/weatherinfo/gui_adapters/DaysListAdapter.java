@@ -6,12 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import streletzcoder.weatherinfo.R;
-import streletzcoder.weatherinfo.WeatherInfo;
+import streletzcoder.weatherinfo.models.WeatherInfo;
 
 public class DaysListAdapter extends RecyclerView.Adapter<DaysListAdapter.ViewHolder> {
 
@@ -41,6 +42,23 @@ public class DaysListAdapter extends RecyclerView.Adapter<DaysListAdapter.ViewHo
             holder.dateText.setText(info.getShortDate());
         }
         holder.weatherText.setText(info.getShortInfoOnlyWeather());
+        switch (info.getWeatherType()) {
+            case CLEAR:
+                holder.imgWeather.setImageResource(R.drawable.white_balance_sunny);
+                break;
+            case CLOUDS:
+                holder.imgWeather.setImageResource(R.drawable.cloud_outline);
+                break;
+            case RAIN:
+                holder.imgWeather.setImageResource(R.drawable.weather_rainy);
+                break;
+            case SNOW:
+                holder.imgWeather.setImageResource(R.drawable.weather_snowy);
+                break;
+            case UNKNOWN:
+                holder.imgWeather.setImageResource(R.drawable.account_question);
+                break;
+        }
     }
 
     @Override
@@ -51,11 +69,13 @@ public class DaysListAdapter extends RecyclerView.Adapter<DaysListAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         final TextView dateText;
         final TextView weatherText;
+        final ImageView imgWeather;
 
         public ViewHolder(View itemView) {
             super(itemView);
             dateText = itemView.findViewById(R.id.dateText);
             weatherText = itemView.findViewById(R.id.weatherText);
+            imgWeather = itemView.findViewById(R.id.imgWeather);
         }
     }
 }

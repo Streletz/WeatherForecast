@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/settingsItem"
-        android:icon="@drawable/cloud_outline"
+        android:icon="@drawable/settings_outline"
         android:orderInCategory="0"
         android:title="Настройки"
         resauto:showAsAction="always"

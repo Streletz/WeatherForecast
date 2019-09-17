@@ -1,22 +1,16 @@
-package streletzcoder.weatherinfo;
-
-import android.app.Application;
-import android.arch.persistence.room.Room;
-import android.content.Context;
-
+package streletzcoder.weatherinfo.models;
 
 
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import streletzcoder.weatherinfo.dataengine.AppDatabase;
-
 /**
  * Created by Стрелец Coder on 04.12.2015.
  * Класс информации о погоде
  */
-public class WeatherInfo  {
+public class WeatherInfo {
+
     //Дата
     private Date date;
     //Тмпература (день, ночь)
@@ -24,8 +18,8 @@ public class WeatherInfo  {
     private int nightTemp;
     //Описание погоды
     private String weatherDescription;
-
-
+    // Категория погоды
+    private WeatherType weatherType;
 
 
     public void setDate(Date d) {
@@ -86,18 +80,11 @@ public class WeatherInfo  {
         return s;
     }
 
-//    @Override
-//    public void onCreate() {
-//        super.onCreate();
-//        database = Room.databaseBuilder(this.getApplicationContext(),
-//                AppDatabase.class,
-//                "database_name.db")
-//                .openHelperFactory(new AssetSQLiteOpenHelperFactory())
-//                .allowMainThreadQueries()
-//                .build();
-//    }
-//
-//    public AppDatabase getDatabase() {
-//        return database;
-//    }
+    public WeatherType getWeatherType() {
+        return weatherType;
+    }
+
+    public void setWeatherType(WeatherType weatherType) {
+        this.weatherType = weatherType;
+    }
 }

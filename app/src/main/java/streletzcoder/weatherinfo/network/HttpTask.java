@@ -4,11 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import streletzcoder.weatherinfo.OpenWeatherMap;
 import streletzcoder.weatherinfo.R;
-import streletzcoder.weatherinfo.WeatherInfo;
+import streletzcoder.weatherinfo.models.WeatherInfo;
 import streletzcoder.weatherinfo.dataengine.AppDatabase;
 
 /**
